@@ -6,7 +6,7 @@
 {% macro default__calculate(metric_list, grain=none, dimensions=[], secondary_calculations=[], start_date=none, end_date=none, where=none, date_alias=none) %}
     {#- Need this here, since the actual ref is nested within loops/conditions: -#}
     -- depends on: {{ ref(var('dbt_metrics_calendar_model', 'dbt_metrics_default_calendar')) }}
-    
+
     {#- ############
     VARIABLE SETTING - Creating the metric tree and making sure metric list is a list!
     ############ -#}
@@ -38,13 +38,13 @@
 
     {%- do metrics.validate_derived_metrics(metric_tree=metric_tree) -%}
 
-    {%- do metrics.validate_dimension_list(dimensions=dimensions, metric_tree=metric_tree, metrics_dictionary=metrics_dictionary) -%} 
+    {%- do metrics.validate_dimension_list(dimensions=dimensions, metric_tree=metric_tree, metrics_dictionary=metrics_dictionary) -%}
 
-    {%- do metrics.validate_metric_config(metrics_dictionary=metrics_dictionary) -%} 
+    {%- do metrics.validate_metric_config(metrics_dictionary=metrics_dictionary) -%}
 
-    {%- do metrics.validate_where(where=where) -%} 
+    {%- do metrics.validate_where(where=where) -%}
 
-    {%- do metrics.validate_secondary_calculations(metric_tree=metric_tree, metrics_dictionary=metrics_dictionary, grain=grain, secondary_calculations=secondary_calculations) -%} 
+    {%- do metrics.validate_secondary_calculations(metric_tree=metric_tree, metrics_dictionary=metrics_dictionary, grain=grain, secondary_calculations=secondary_calculations) -%}
 
     {%- do metrics.validate_calendar_model() -%}
 
@@ -64,6 +64,6 @@
         metric_tree=metric_tree
     ) %}
 
-({{ sql }}) metric_subq 
+({{ sql }}) metric_subq
 
 {%- endmacro -%}

@@ -8,6 +8,7 @@
     {%- set accepted_configs = {
         "enabled" : {"accepted_values" : [True, False]},
         "treat_null_values_as_zero" : {"accepted_values" : [True, False]},
+        "group" : {"accepted_values" : [True, False]},
         "restrict_no_time_grain" : {"accepted_values" : [True, False]}
         }
     -%}
@@ -22,17 +23,10 @@
                 {%- if not accepted_configs[config] -%}
                     {%- do exceptions.raise_compiler_error("The metric " ~ metric ~ " has an invalid config option. The config '" ~ config ~ "' is not accepted.") -%}
                 {%- endif -%}
-                {#- check that the config datatype is expected -#}
-                {%- if accepted_configs[config] -%}
-                    {%- set accepted_values = accepted_configs[config]["accepted_values"] -%}
-                    {%- if not config_value in accepted_values -%}
-                        {%- do exceptions.raise_compiler_error("The metric " ~ metric ~ " has an invalid config value specified. The config '" ~ config ~ "' expects one of " ~ accepted_values) -%}
-                    {%- endif -%}
-                {% endif %}
             {%- endfor %}
         {%- endif -%}
     {%- endfor %}
-            
+
 
 
 {%- endmacro -%}
